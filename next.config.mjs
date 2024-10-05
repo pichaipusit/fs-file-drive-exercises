@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: "adventurous-caiman-790.convex.cloud",
+        hostname: process.env.NEXT_PUBLIC_CONVEX_URL.replace("https://", ""),
       },
     ],
   },
