@@ -20,37 +20,13 @@ export const generateUploadUrl = mutation(async (ctx) => {
   return await ctx.storage.generateUploadUrl();
 });
 
-export async function hasAccessToOrg(
-  ctx: QueryCtx | MutationCtx,
-  orgId: string
-) {
-  const identity = await ctx.auth.getUserIdentity();
+// TODO: Fix this in other files
+// 1. Provide a missing prop in the authenticated component
+// 2. We need like an entrance for passengers to check in
+// 3. How to navigate a user to authenticate with clerk?
 
-  if (!identity) {
-    return null;
-  }
-
-  const user = await ctx.db
-    .query("users")
-    .withIndex("by_tokenIdentifier", (q) =>
-      q.eq("tokenIdentifier", identity.tokenIdentifier)
-    )
-    .first();
-
-  if (!user) {
-    return null;
-  }
-
-  const hasAccess =
-    user.orgIds.some((item) => item.orgId === orgId) ||
-    user.tokenIdentifier.includes(orgId);
-
-  if (!hasAccess) {
-    return null;
-  }
-
-  return { user };
-}
+// TODO: How would u implement this func from observing other funcs that use it?
+// hasAccessToOrg;
 
 export const createFile = mutation({
   args: {
