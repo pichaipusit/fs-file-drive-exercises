@@ -52,29 +52,10 @@ export async function hasAccessToOrg(
   return { user };
 }
 
-export const createFile = mutation({
-  args: {
-    name: v.string(),
-    fileId: v.id("_storage"),
-    orgId: v.string(),
-    type: fileTypes,
-  },
-  async handler(ctx, args) {
-    const hasAccess = await hasAccessToOrg(ctx, args.orgId);
-
-    if (!hasAccess) {
-      throw new ConvexError("you do not have access to this org");
-    }
-
-    await ctx.db.insert("files", {
-      name: args.name,
-      orgId: args.orgId,
-      fileId: args.fileId,
-      type: args.type,
-      userId: hasAccess.user._id,
-    });
-  },
-});
+// TODO:
+// 1. How would u create file for your organization ?
+// 2. What if "you do not have access to this org"?
+export const createFile = "";
 
 export const getFiles = query({
   args: {
